@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+{% load staticfiles %}
+<link href="{% static 'css/chwl.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'css/nhome.css' %}" rel="stylesheet" type="text/css">
+<script src="{% static 'js/jquery-1.8.1.min.js' %}"></script>
+<script src="{% static 'js/chwl.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/nhome.js' %}" type="text/javascript"></script>
+<title>还差一个哟</title>
+</head>
+<body>
+	<!--头部开始-->
+	<div id="header">
+		<div id="head_content">
+			<div id="logo">
+				<a href="/index/">
+					<img src="{% static "img/logo.png" %}"/>
+				</a>
+			</div>
+			<div id="search">
+				<form name="search" method="get">
+					<div id="l_input">
+						<input type="text" class="l"/>
+					</div>
+					<div id="r_input">
+						<input type="submit" value=" " class="ll"/>
+					</div>
+				</form>
+			</div>
+			{% if user %}
+			<div id="loggin">
+				<ul id="l_list">
+					<form name="loggin" method="post" action="/logout/">
+						<li><P style="color: #4CAFF1;font-size: 15px;margin: 5px;font-weight: bolder;"><span style="color: #A4ABAF;">当前用户：</span>{{ user.username }}</p></li>
+						<li><input type="submit" class="box" value="注销"/></li>
+						<input type="hidden" name="callback" value="/share/list/{{ stype }}/"/>
+					</form>
+				</ul>
+			</div>
+			{% else %}
+			<div id="loggin">
+				<ul id="l_list">
+					<form name="loggin" method="post" action="/login/">
+						<li><input type="text"  name="username" placeholder="输入账号"  class="inp"/></li>
+						<li><input type="password" name="password" placeholder="密码"   class="inp"/></li>
+						<li><input type="submit" class="box" value="登录"/></li>
+						<input type="hidden" name="callback" value="/share/list/{{ stype }}/"/>
+						<li><a href="/register/" class="box" id="zc"><div>注册</div></a></li>
+					</form>
+			</div>
+			{% endif %}
+		</div>
+		<div id="navigation">
+			<div id="nav_con">
+				<div id="m_nav">
+					<ul id="n_list">
+						<li class="over"><a href="/index/" class="list_a">首页</a></li>
+						<li class="over"><a href="/share/list/dinner/" class="list_a">饭分享</a></li>
+						<li class="over"><a href="/share/list/play/" class="list_a">玩分享</a></li>
+						<li class="over"><a href="/share/list/movie/" class="list_a">电影分享</a></li>
+						<li class="over"><a href="/share/edit/" class="list_a">马上分享</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--头部结束-->
+	<!--主体开始-->
+	<div class="main">
+		<!-- hide begin-->
+		<div id="c_left">
+			<div id="fast_nav" class="fast_nn">
+				<div id="fast_h">
+					<h4>快速导航</h4>
+				</div>
+				<div id="fast_b" class="fast_bb">
+					<div class="fast_item">
+						<i class="f_icon one"></i>
+						<a href="/date/list/dinner/"><h4>看看约饭</h4></a>
+					</div>
+					<div class="fast_item">
+						<i class="f_icon two"></i>
+						<a href="/date/list/play/"><h4>看看约玩</h4></a>
+					</div>
+					<div class="fast_item">
+						<i class="f_icon three"></i>
+						<a href="/date/list/movie/"><h4>看看约电影</h4></a>
+					</div>
+					<div class="fast_item">
+						<i class="f_icon four"></i>
+						<a href="/date/edit/"><h4>马上约</h4></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- hide over-->
+		<div id="share_act">
+			<form method="post" name="share" action="/share/" enctype="multipart/form-data">
+				<div class="share_title">
+					<span>标题：</span><input type="text" name="title" />
+				</div>
+				<div class="s_select">
+					<span>分类：</span>
+					<select name="type">
+						<option value="dinner">关于饭</option>
+						<option value="play">关于玩</option>
+						<option value="movie">关于电影</option>
+					</select>
+				</div>
+				<div class="s_content" style="margin-left: 10px;margin-top: 5px;">
+					<textarea id="share_te" name="content">
+					</textarea>
+				</div>
+				<div class="file">
+					<span>上传图片：</span>
+					<input type="file" name="image" value="上传图片"/>
+					<input type="submit" id="share_bu"/>
+				</div>
+			</form>
+		</div>
+	<!--footer开始-->
+	
+	<!--footer结束-->
+</body>
+</html>

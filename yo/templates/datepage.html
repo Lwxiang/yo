@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+{% load staticfiles %}
+<link href="{% static 'css/chwl.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'css/nhome.css' %}" rel="stylesheet" type="text/css">
+<script src="{% static 'js/jquery-1.8.1.min.js' %}"></script>
+<script src="{% static 'js/chwl.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/nhome.js' %}" type="text/javascript"></script>
+<title>还差一个哟</title>
+</head>
+<body>
+	<!--头部开始-->
+	<div id="header">
+		<div id="head_content">
+			<div id="logo">
+				<a href="/index/">
+					<img src="{% static 'img/logo.png' %}"/>
+				</a>
+			</div>
+			<div id="search">
+				<form name="search" method="get">
+					<div id="l_input">
+						<input type="text" class="l"/>
+					</div>
+					<div id="r_input">
+						<input type="submit" value=" " class="ll"/>
+					</div>
+				</form>
+			</div>
+			{% if user %}
+			<div id="loggin">
+				<ul id="l_list">
+					<form name="loggin" method="post" action="/logout/">
+						<li><P style="color: #4CAFF1;font-size: 15px;margin: 5px;font-weight: bolder;"><span style="color: #A4ABAF;">当前用户：</span>{{ user.username }}</p></li>
+						<li><input type="submit" class="box" value="注销"/></li>
+						<input type="hidden" name="callback" value="/date/{{ stype }}/{{ urlid }}"/>
+					</form>
+				</ul>
+			</div>
+			{% else %}
+			<div id="loggin">
+				<ul id="l_list">
+					<form name="loggin" method="post" action="/login/">
+						<li><input type="text"  name="username" placeholder="输入账号"  class="inp"/></li>
+						<li><input type="password" name="password" placeholder="密码"   class="inp"/></li>
+						<li><input type="submit" class="box" value="登录"/></li>
+						<input type="hidden" name="callback" value="/date/{{ stype }}/{{ urlid }}"/>
+						<li><a href="/register/" class="box" id="zc"><div>注册</div></a></li>
+					</form>
+			</div>
+			{% endif %}
+		</div>
+		<div id="navigation">
+			<div id="nav_con">
+				<div id="m_nav">
+					<ul id="n_list">
+						<li class="over"><a href="/index/" class="list_a">首页</a></li>
+						<li class="over"><a href="/share/list/dinner/" class="list_a">饭分享</a></li>
+						<li class="over"><a href="/share/list/play/" class="list_a">玩分享</a></li>
+						<li class="over"><a href="/share/list/movie/" class="list_a">电影分享</a></li>
+						<li class="over"><a href="/share/edit/" class="list_a">马上分享</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--头部结束-->
+	<!--主体开始-->
+	<div class="main">
+		<!-- hide begin-->
+		<div id="c_left">
+			<div id="fast_nav" class="fast_nn">
+				<div id="fast_h">
+					<h4>快速导航</h4>
+				</div>
+				<div id="fast_b" class="fast_bb">
+					<div class="fast_item">
+						<i class="f_icon one"></i>
+						<a href="/date/list/dinner/"><h4>看看约饭</h4></a>
+					</div>
+					<div class="fast_item">
+						<i class="f_icon two"></i>
+						<a href="/date/list/play/"><h4>看看约玩</h4></a>
+					</div>
+					<div class="fast_item">
+						<i class="f_icon three"></i>
+						<a href="/date/list/movie/"><h4>看看约电影</h4></a>
+					</div>
+					<div class="fast_item">
+						<i class="f_icon four"></i>
+						<a href="/date/edit/"><h4>马上约</h4></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- hide over-->
+		<div id="intime" style="float: right;">
+			<div id="intime_cont">
+				<div class="inhd">
+					<h4>
+						<i></i>最近各种约
+					</h4>
+				</div>
+				<div class="inbd">
+					<ul id="inbody">
+						{% if date_dinner %}
+						<li>
+							<a href="{{ date_dinner.jumpurl }}">{{ date_dinner.username }} 的约饭有了新动态</a>
+							<p>{{ date_dinner.title }}</p>
+						</li>
+						{% endif %}
+                                                {% if date_play %}
+						<li>
+							<a href="{{ date_play.jumpurl }}">{{ date_play.username }} 的约玩有了新动态</a>
+							<p>{{ date_play.title }}</p>
+						</li>
+						{% endif %}
+						{% if date_movie %}
+						<li>
+							<a href="{{ date_movie.jumpurl }}">{{ date_movie.username }} 的约电影有了新动态</a>
+							<p>{{ date_movie.title }}</p>
+						</li>
+						{% endif %}
+					</ul>
+					<div class="hotbd">
+						<div id="one">
+							<span id="hone">01</span>
+							<a href="#" id="oneimg">
+								<img src="{% static "img/h1.jpg" %}"/>
+							</a>
+							<div class="tit"><a href="#">漂亮妹子吃户部巷~</a></div>
+						</div>
+						<div class="other">
+							<span class="hno">02</span>
+							<a href="#">
+								<img src="{% static "img/h2.jpg" %}" />
+							</a>
+							<div><a href="#">红红的</a></div>
+						</div>
+						<div class="othero">
+							<span class="hno">03</span>
+							<a href="#">
+								<img src="{% static "img/h3.jpg" %}" />
+							</a>
+							<div><a href="#">哈不造~</a></div>
+						</div>
+						<div class="other">
+							<span class="hnt">04</span>
+							<a href="#">
+								<img src="{% static "img/h4.jpg" %}" />
+							</a>
+							<div><a href="#">郊外~</a></div>
+						</div>
+						<div class="othero">
+							<span class="hnt">05</span>
+							<a href="#">
+								<img src="{% static "img/h5.jpg" %}" />
+							</a>
+							<div><a href="#">街边</a></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="s_content">
+			<div class="mod">
+				<div class="co_h">
+					<div class="co_title">
+						<div><h1>{{ dateinfo.title }}</h1></div>	
+						{% if joined %}
+						<div>
+							<form method="post" action="/join/">
+								<button type="submit" class="join">
+								我又不想去了({{ dateinfo.num }})					
+								</button>
+								<input type="hidden" value="{{ dateinfo.did }}" name="did" />
+							</form>
+						</div>
+						{% else %}
+						<div>
+							<form method="post" action="/join/">
+								<button type="submit" class="join">
+								我要参加({{ dateinfo.num }})					
+								</button>
+								<input type="hidden" value="{{ dateinfo.did }}" name="did" />
+							</form>
+						</div>
+						{% endif %}
+					</div>
+					<div class="co_time">
+						<span>[<span style="color:orange;">{{ dateinfo.start|date:"Y-m-d H:i:s" }}</span>] To [<span style="color:orange;">{{ dateinfo.end|date:"Y-m-d H:i:s"  }}</span>]</span>
+					</div>
+					<div class="co_author">
+						<span> 作者：{{ dateinfo.username }}</span>
+					</div>
+				</div>
+				<div class="co_body">
+					{% if dateinfo.belongs %}<a href="{{ dateinfo.belongs }}">详细介绍请戳我</a>{% endif %}<br/>
+					{{ dateinfo.content|linebreaks }}
+				</div>
+			</div>
+			<hr style="margin-top: 20px;margin-bottom: 20px;color: #4CAFF1;"/>
+                        {% if not comment %}
+			<h2>暂时还没有评论哟！</h2><br/>
+                        {% endif %}
+			{% for com in comment %}	
+			<div class="s_coment">
+				<div class="com_hd">
+					<span class="com_aut">
+						{{ com.username }}
+					</span>
+					<span class="com_time">
+						{{ com.time|date:"Y-m-d H:i:s" }}
+					</span>
+				</div>
+				<div class="reply">
+					<p>{{ com.text|linebreaks }}</p>
+				</div>
+			</div>
+			{% endfor %} 
+			<div class="r_coment">
+				<div>
+					<span class="r_t">
+						回复楼主：
+					</span>
+				</div>
+				<form action="/date/comment/" name="reply" method="post">
+					<textarea class="text" name="text"></textarea>
+					<input type="submit"  value="回复" class="r_in"/>
+					<input type="hidden" value="{{ dateinfo.did }}" name="did" />
+				</form>
+			</div>
+		</div>
+	</div>
+	<!--footer开始-->
+	
+	<!--footer结束-->
+</body>
+</html>
